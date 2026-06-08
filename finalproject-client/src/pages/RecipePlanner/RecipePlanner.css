@@ -1,0 +1,81 @@
+.total-container {
+    display: flex;
+    flex-direction: row-reverse;
+ 
+    justify-content: space-around;
+    
+}
+.meal-results-container {
+    width: 600px !important;
+    margin-left: 100px;
+    
+}
+
+.meals-container{
+    display: flex !important;
+    flex-direction: row;
+
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-right: 80px;
+    max-width: 1200px;
+
+ }
+
+.clay-size{
+    width: 300px;
+    margin: 20px;
+    height: 320px;
+}
+.add-btn {
+    margin: 20px 0;
+}
+
+.inpt-meal-name {
+    margin-bottom: 20px;
+    width: 70%;
+    padding: 5px;
+}
+
+.meal-total {
+    display: flex;
+    flex-direction: row;
+    width: 400px;
+    background-color: rgba(240, 255, 240, 0.82);
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 20px;
+    margin-top: 2px;
+    margin-left: 75px;
+}
+
+.meal-total p {
+    padding-top: 10px;
+}
+.create-mealplan-btn {
+    margin-top: 20px;
+}
+
+.create-mealplan-btn {
+    text-decoration: none;
+      border: none;
+      width: 70%;
+      height: 46px;
+      border-radius: 22.5px;
+      margin: 30px auto;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      background: #008148;
+      color: #fff;
+      font-size: 17px;
+      overflow: hidden;
+      -webkit-transform: perspective(1px) translateZ(0);
+      transform: perspective(1px) translateZ(0);
+      position: relative;
+      -webkit-transition-property: color;
+      transition-property: color;
+      -webkit-transition-duration: 0.3s;
+      transition-duration: 0.3s; }

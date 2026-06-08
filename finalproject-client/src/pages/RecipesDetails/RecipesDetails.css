@@ -1,0 +1,72 @@
+.details-container {
+    background-color: rgba(240, 255, 240, 0.82);
+    width:70%;
+    padding: 1px 20px 20px 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.return-icon {
+    margin-right: 20px;
+}
+.details-container h1 {
+    text-align: left;
+    font-size: 30px;
+}
+
+.details-columns p{
+    margin-top: 20px;
+}
+
+
+.recipe-avatar {
+    max-width: 20rem;
+}
+.ingredients-column{
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+}
+
+.method-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px;
+    text-align: left;
+}
+
+.recipe-serving-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.details-columns {
+    display: flex;
+    flex-direction: row;
+}
+ol {
+    list-style: none;
+    counter-reset: steps;
+  }
+  ol li {
+    counter-increment: steps;
+  }
+
+  ol li::before {
+    content: "Step " counter(steps);
+    margin-right: 0.5rem;
+    color: green;
+  }
+  
+  ul{
+    margin-left: 50px;
+    list-style-type: "→ ";
+    list-style-position: inside;
+  }
+
+  .recipe-avatar {
+    margin: 25px 0;
+  }

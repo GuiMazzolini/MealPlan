@@ -1,0 +1,34 @@
+.recipe-img {
+    height: 200px;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.recipe-topics {
+    display: flex;
+    line-height: 10px;
+    justify-content: center;
+    margin-top: 20px; 
+}
+
+.topic{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-right: 40px;
+}
+
+.clay {
+    width: 300px;
+    margin: 20px;
+}
+
+.card-name {
+    margin-top: 10px !important;
+}
+
+.link, .link:hover {
+    text-decoration: none !important;
+    color: black;
+}

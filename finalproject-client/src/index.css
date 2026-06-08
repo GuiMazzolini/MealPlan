@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "ChelseaMarket-Regular";
+  src: url("/public/fonts/chelsea_market/ChelseaMarket-Regular.ttf"); }
+@font-face {
+  font-family: "Muli-Regular";
+  src: url("/public/fonts/muli/Muli-Regular.ttf"); }
+@font-face {
+  font-family: "Muli-SemiBold";
+  src: url("/public/fonts/muli/Muli-SemiBold.ttf");}
+
+
+.remove-btn,
+.toggle-btn,
+.add-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+}
+
+body {
+  margin: 0;
+  font-family: "Muli-Regular";
+  font-size: 15px;
+  color: #fff;
+
+}

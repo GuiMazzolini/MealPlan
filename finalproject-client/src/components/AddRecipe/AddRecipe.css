@@ -1,0 +1,54 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+    height: auto;
+ 
+
+}
+
+.add-form {
+    width: 500px;
+    background-color: rgba(240, 255, 240, 0.82);
+    padding-left: 20px;
+}
+ 
+ .form-inputs {
+    text-align: left;
+    width: 500px;
+    background-color: rgba(240, 255, 240, 0.82);
+    overflow: auto;
+    overflow-wrap: break-word
+
+  
+}
+
+.mb-3 {
+    width: 90%;
+} 
+
+.create-recipe-btn {
+    background-color: #008148 ;
+    border: none;
+    margin-right: 50px;
+    margin-bottom: 30px;
+}
+
+.create-recipe-btn:hover {
+    color: #008148;
+    background-color: white;
+}
+
+.line-fix {
+    margin-right: 50px;
+}
+
+.height-fix {
+    line-height: 32px;
+}
+
+li {
+    display: block;
+    max-width: 500px !important;
+    justify-content: right;
+    text-align: justify;
+}

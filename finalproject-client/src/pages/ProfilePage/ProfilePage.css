@@ -1,0 +1,82 @@
+.profile-container {
+    display: flex;
+    flex-direction: row;
+}
+.your-recipes-container {
+    width: 50%;
+    height: auto;
+    border-right: 1px solid black;
+}
+
+.welcome {
+    margin-bottom: 80px !important;
+    font-family: "ChelseaMarket-Regular";
+    color: #008148;
+}
+
+h4 {
+    margin-bottom: 40px !important;
+}
+.your-recipes {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+.profile-planner-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profile-planner{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+    width: 500px;
+    margin-top: 10px;
+}
+
+.meal-center-result{
+    margin: 0 10px;
+}
+
+.profile-planner p {
+    padding-top: 12px;
+}
+
+.meals-results {
+    padding-top: 10px;
+}
+
+.inner-planner {
+    display: flex;
+    flex-direction: row;
+}
+
+.inner-planner p {
+  font-size: large;
+  
+}
+
+.clay-inner-planner {
+    width: 200px !important;
+    height: 300px;
+}
+
+.clay-container {
+    display: flex !important;
+    flex-direction: row !important;
+    font-size: small;
+}
+
+.planer-meals {
+    display: flex;
+    flex-direction: column;
+}
+
+#img-delete {
+    margin-top: 20px;
+}

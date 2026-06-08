@@ -1,0 +1,28 @@
+.navbar {
+    border-bottom: solid 1px white;
+}
+
+.navbar-link, .navbar {
+    background-color: #008148 !important;
+    color: whitesmoke !important;
+    text-shadow: 1px 1px 1px black; 
+}
+
+.navbar-link:hover,
+.navbar-link.active {
+    color: rgba(240, 255, 240, 0.82)!important;
+}
+
+.navbar-link.active {
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.welcome-msg {
+    margin-top: 8px;
+    margin-left: 30px;
+}
+
+.welcome-msg:hover {
+    color: whitesmoke !important;
+}
