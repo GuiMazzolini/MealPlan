@@ -1,45 +1,85 @@
 import "./HomePage.css";
 import { Link } from "react-router-dom";
-import Carousel from "react-bootstrap/Carousel";
+import { useContext } from "react";
+import { AuthContext } from "../../context/auth.context";
+import RecipeCard from "../../components/RecipeCard/RecipeCard";
+
+const FEATURES = [
+  {
+    title: "Share recipes",
+    text: "Post your favourite dishes with photos, ingredients, and step-by-step instructions.",
+    icon: "🍳",
+  },
+  {
+    title: "Plan your week",
+    text: "Pick recipes for each day and build a meal plan in a few clicks.",
+    icon: "📅",
+  },
+  {
+    title: "Shop smarter",
+    text: "Turn any plan into a combined shopping list you can print or share.",
+    icon: "🛒",
+  },
+];
 
 function HomePage({ recipes }) {
-  const featured = recipes?.slice(-6).reverse() || [];
+  const { isLoggedIn } = useContext(AuthContext);
+  const featured = recipes?.slice(-3).reverse() || [];
 
   return (
-    <div className="home-container">
-      <h1>Welcome to MealPlan</h1>
-      <p className="home-subtitle">
-        A community kitchen where you can share recipes, discover new meals, and plan your week.
-      </p>
+    <>
+      <section className="home-hero-band" aria-label="Welcome">
+        <div className="home-hero">
+          <h1>Welcome to MealPlan</h1>
+          <p className="home-subtitle">
+            A community kitchen where you can share recipes, discover new meals, and plan your week.
+          </p>
+          <div className="home-hero-actions">
+            <Link className="home-btn home-btn--primary" to="/recipes">
+              Browse recipes
+            </Link>
+            {isLoggedIn ? (
+              <Link className="home-btn home-btn--secondary" to="/planner">
+                Meal planner
+              </Link>
+            ) : (
+              <Link className="home-btn home-btn--secondary" to="/signup">
+                Join free
+              </Link>
+            )}
+          </div>
+        </div>
+      </section>
 
-      {featured.length > 0 ? (
-        <>
+      <div className="home-page">
+      <section className="home-features" aria-label="What you can do">
+        {FEATURES.map((feature) => (
+          <article className="home-feature" key={feature.title}>
+            <span className="home-feature-icon" aria-hidden="true">
+              {feature.icon}
+            </span>
+            <h2>{feature.title}</h2>
+            <p>{feature.text}</p>
+          </article>
+        ))}
+      </section>
+
+      {featured.length > 0 && (
+        <section className="home-latest">
           <h2 className="home-section-title">Latest from the community</h2>
-          <Carousel>
+          <div className="home-recipe-grid">
             {featured.map((recipe) => (
-              <Carousel.Item className="carousel-item" key={recipe._id} interval={3000}>
-                <Link className="link" to={`/recipes/${recipe._id}`}>
-                  <img
-                    className="d-block w-100"
-                    src={recipe.imageUrl}
-                    alt={recipe.name}
-                  />
-                  <Carousel.Caption>
-                    <h3>{recipe.name}</h3>
-                  </Carousel.Caption>
-                </Link>
-              </Carousel.Item>
+              <RecipeCard key={recipe._id} {...recipe} compact />
             ))}
-          </Carousel>
-        </>
-      ) : (
-        <p>No recipes yet. Be the first to share one!</p>
+          </div>
+        </section>
       )}
 
-      <Link className="home-browse-btn" to="/recipes">
-        Browse all community recipes →
-      </Link>
-    </div>
+      {featured.length === 0 && (
+        <p className="home-empty">No recipes yet — be the first to share one!</p>
+      )}
+      </div>
+    </>
   );
 }
 

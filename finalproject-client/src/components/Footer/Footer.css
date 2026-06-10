@@ -1,0 +1,88 @@
+.site-footer {
+  background: #1a3d2e;
+  color: #c8e6d0;
+  margin-top: auto;
+}
+
+.site-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 2rem;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+}
+
+.site-footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: "ChelseaMarket-Regular", serif;
+  font-size: 1.25rem;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+
+.site-footer-logo:hover {
+  color: #a8e6a3;
+}
+
+.site-footer-brand p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 280px;
+  color: #9cc4a8;
+}
+
+.site-footer-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.site-footer-col h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #fff;
+  font-weight: 600;
+}
+
+.site-footer-col a {
+  display: block;
+  color: #c8e6d0;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 0.45rem;
+  transition: color 0.2s;
+}
+
+.site-footer-col a:hover {
+  color: #fff;
+}
+
+.site-footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 1.5rem;
+  text-align: center;
+}
+
+.site-footer-bottom p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #7fa88c;
+}
+
+@media (max-width: 640px) {
+  .site-footer-inner {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .site-footer-links {
+    grid-template-columns: 1fr 1fr;
+  }
+}

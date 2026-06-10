@@ -1,29 +1,324 @@
-.container-shopping-meal {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.shopping-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 3rem;
+  text-align: left;
 }
 
-.meals-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-right: 100px;
+.shopping-loading,
+.shopping-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #555;
 }
 
-.shopping-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 100px;
+.shopping-empty h1 {
+  font-family: "ChelseaMarket-Regular", serif;
+  color: #008148;
+  margin-bottom: 0.5rem;
 }
 
-li {
-    font-size: 20px;
+.shopping-success-banner {
+  background: #e8f5e9;
+  border: 1px solid #b8dfc4;
+  color: #006b3a;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
-#checkboxes {
-    margin-right: 8px;
-    padding: 10px;
 
+.shopping-back-link {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #008148;
+  text-decoration: none;
+}
+
+.shopping-back-link:hover {
+  text-decoration: underline;
+  color: #006b3a;
+}
+
+.shopping-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.shopping-header h1 {
+  margin: 0 0 0.25rem;
+  font-family: "ChelseaMarket-Regular", serif;
+  font-size: 1.75rem;
+  color: #008148;
+}
+
+.shopping-date {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.shopping-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.shopping-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid #cce8d4;
+  background: #fff;
+  color: #008148;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.shopping-btn:hover {
+  background: #f4faf5;
+}
+
+.shopping-btn--primary {
+  background: #008148;
+  color: #fff;
+  border-color: #008148;
+}
+
+.shopping-btn--primary:hover {
+  background: #006b3a;
+  color: #fff;
+}
+
+.shopping-feedback {
+  text-align: center;
+  color: #008148;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: -0.5rem 0 1rem;
+}
+
+.shopping-body {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 1.5rem;
+}
+
+.shopping-section {
+  background: #fff;
+  border: 1px solid rgba(0, 129, 72, 0.12);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.shopping-section h2 {
+  margin: 0 0 1rem;
+  font-family: "ChelseaMarket-Regular", serif;
+  font-size: 1.1rem;
+  color: #008148;
+}
+
+.shopping-meals {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.shopping-meal-item {
+  border-radius: 10px;
+}
+
+.shopping-meal-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  background: #f4faf5;
+  border: 1px solid #e0efe4;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.shopping-meal-link:hover {
+  background: #e8f5e9;
+  border-color: #b8dfc4;
+}
+
+.shopping-meal-item img {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.shopping-meal-qty {
+  font-weight: 700;
+  color: #008148;
+  margin-right: 0.35rem;
+}
+
+.shopping-meal-name {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.shopping-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.shopping-item {
+  border-radius: 10px;
+  background: #f4faf5;
+  border: 1px solid #e0efe4;
+  transition: opacity 0.2s;
+}
+
+.shopping-item--checked {
+  opacity: 0.55;
+}
+
+.shopping-item--checked .shopping-item-text {
+  text-decoration: line-through;
+}
+
+.shopping-item-label {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.85rem;
+  cursor: pointer;
+  margin: 0;
+}
+
+.shopping-item-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #008148;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.shopping-item-text {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.shopping-item-text strong {
+  color: #008148;
+}
+
+.shopping-hint {
+  margin: 0;
+  color: #999;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.shopping-footer {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+.shopping-footer a {
+  color: #008148;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.shopping-footer a:hover {
+  text-decoration: underline;
+}
+
+.print-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .shopping-body {
+    grid-template-columns: 1fr;
   }
+
+  .shopping-header {
+    flex-direction: column;
+  }
+
+  .shopping-actions {
+    width: 100%;
+  }
+
+  .shopping-btn {
+    flex: 1;
+    min-width: calc(50% - 0.25rem);
+  }
+}
+
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .site-header,
+  .site-footer,
+  .no-print,
+  .shopping-footer {
+    display: none !important;
+  }
+
+  .shopping-page {
+    max-width: none;
+    padding: 0;
+  }
+
+  .shopping-section {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+
+  .shopping-body {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .print-only {
+    display: inline;
+  }
+
+  .shopping-item--checked {
+    opacity: 1;
+  }
+
+  .shopping-item--checked .shopping-item-text {
+    text-decoration: line-through;
+  }
+}

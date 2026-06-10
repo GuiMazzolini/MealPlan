@@ -1,82 +1,372 @@
-.profile-container {
-    display: flex;
-    flex-direction: row;
-}
-.your-recipes-container {
-    width: 50%;
-    height: auto;
-    border-right: 1px solid black;
+.profile-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 3rem;
+  text-align: left;
 }
 
-.welcome {
-    margin-bottom: 80px !important;
-    font-family: "ChelseaMarket-Regular";
-    color: #008148;
+.profile-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 129, 72, 0.15);
 }
 
-h4 {
-    margin-bottom: 40px !important;
+.profile-header h1 {
+  margin: 0 0 0.25rem;
+  font-family: "ChelseaMarket-Regular", serif;
+  font-size: 2rem;
+  color: #008148;
 }
-.your-recipes {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
+
+.profile-email {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: #777;
 }
-.profile-planner-container {
-    width: 50%;
-    display: flex;
+
+.profile-stats {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.profile-stats-dot {
+  margin: 0 0.35rem;
+  color: #ccc;
+}
+
+.profile-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.profile-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #cce8d4;
+  background: #fff;
+  color: #008148;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.profile-action-btn:hover {
+  background: #f4faf5;
+  color: #008148;
+}
+
+.profile-action-btn--primary {
+  background: #008148;
+  color: #fff;
+  border-color: #008148;
+}
+
+.profile-action-btn--primary:hover {
+  background: #006b3a;
+  color: #fff;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.profile-section {
+  background: #fff;
+  border: 1px solid rgba(0, 129, 72, 0.12);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.profile-section-header {
+  margin-bottom: 1rem;
+}
+
+.profile-section-header h2 {
+  margin: 0;
+  font-family: "ChelseaMarket-Regular", serif;
+  font-size: 1.15rem;
+  color: #008148;
+}
+
+.profile-recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.profile-recipe-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e0efe4;
+  background: #f4faf5;
+  transition: box-shadow 0.2s;
+}
+
+.profile-recipe-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 129, 72, 0.12);
+}
+
+.profile-recipe-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.5rem;
+}
+
+.profile-recipe-image-wrap {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #e8f5e9;
+  margin-bottom: 0.5rem;
+}
+
+.profile-recipe-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.profile-recipe-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.profile-recipe-link h3 {
+  margin: 0 0 0.2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-recipe-type {
+  font-size: 0.7rem;
+  color: #008148;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.profile-recipe-delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(192, 57, 43, 0.9);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.profile-recipe-card:hover .profile-recipe-delete,
+.profile-recipe-delete:focus {
+  opacity: 1;
+}
+
+.profile-plans-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.profile-plan-card {
+  border: 1px solid #e0efe4;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f4faf5;
+}
+
+.profile-plan-header {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.profile-plan-toggle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.profile-plan-chevron {
+  font-size: 0.7rem;
+  color: #008148;
+  flex-shrink: 0;
+}
+
+.profile-plan-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.profile-plan-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.profile-plan-meta {
+  font-size: 0.75rem;
+  color: #777;
+}
+
+.profile-plan-action-link {
+  flex-shrink: 0;
+  padding: 0.35rem 0.55rem;
+  margin-right: 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #008148;
+  text-decoration: none;
+  border: 1px solid rgba(0, 129, 72, 0.35);
+  border-radius: 8px;
+  background: #fff;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.profile-plan-action-link:hover {
+  background: #e8f5e9;
+  border-color: #008148;
+  color: #006b3a;
+}
+
+.profile-plan-delete {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #c0392b;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.profile-plan-delete:hover {
+  background: rgba(192, 57, 43, 0.1);
+}
+
+.profile-plan-meals {
+  list-style: none;
+  margin: 0;
+  padding: 0.65rem 0.85rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border-top: 1px solid #e0efe4;
+}
+
+.profile-plan-meals li a {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.85rem;
+  background: #fff;
+  border: 1px solid #e8f0ea;
+  transition: background 0.2s;
+}
+
+.profile-plan-meals li a:hover {
+  background: #e8f5e9;
+}
+
+.profile-plan-meals img {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.profile-plan-meals strong {
+  color: #008148;
+  margin-right: 0.2rem;
+}
+
+.profile-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #777;
+}
+
+.profile-empty p {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+}
+
+.profile-loading {
+  text-align: center;
+  color: #999;
+  font-size: 0.9rem;
+  padding: 1.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-header {
     flex-direction: column;
-    align-items: center;
-}
-.profile-planner{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    border: 1px solid black;
-    width: 500px;
-    margin-top: 10px;
-}
+  }
 
-.meal-center-result{
-    margin: 0 10px;
-}
+  .profile-quick-actions {
+    width: 100%;
+  }
 
-.profile-planner p {
-    padding-top: 12px;
-}
+  .profile-action-btn {
+    flex: 1;
+  }
 
-.meals-results {
-    padding-top: 10px;
-}
-
-.inner-planner {
-    display: flex;
-    flex-direction: row;
-}
-
-.inner-planner p {
-  font-size: large;
-  
-}
-
-.clay-inner-planner {
-    width: 200px !important;
-    height: 300px;
-}
-
-.clay-container {
-    display: flex !important;
-    flex-direction: row !important;
-    font-size: small;
-}
-
-.planer-meals {
-    display: flex;
-    flex-direction: column;
-}
-
-#img-delete {
-    margin-top: 20px;
+  .profile-recipe-delete {
+    opacity: 1;
+  }
 }

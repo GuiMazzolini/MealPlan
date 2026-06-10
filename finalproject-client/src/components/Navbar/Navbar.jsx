@@ -1,68 +1,83 @@
 import "./Navbar.css";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 
 function navLinkClass({ isActive }) {
-  return isActive ? "nav-link navbar-link active" : "nav-link navbar-link";
+  return isActive ? "site-nav-link active" : "site-nav-link";
 }
 
 function NavbarComp() {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <Navbar className="navbar" collapseOnSelect expand="lg" variant="dark">
-      <Container>
-        <Navbar.Brand as={NavLink} to="/">MealPlan</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/" end className={navLinkClass}>
+    <header className="site-header">
+      <div className="site-header-inner">
+        <NavLink to="/" className="site-brand" onClick={closeMenu}>
+          <span className="site-brand-icon" aria-hidden="true">🥗</span>
+          MealPlan
+        </NavLink>
+
+        <button
+          type="button"
+          className="site-menu-toggle"
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <nav className={`site-nav${menuOpen ? " site-nav--open" : ""}`}>
+          <div className="site-nav-links">
+            <NavLink to="/" end className={navLinkClass} onClick={closeMenu}>
               Home
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/recipes" className={navLinkClass}>
-              Community Recipes
-            </Nav.Link>
+            </NavLink>
+            <NavLink to="/recipes" className={navLinkClass} onClick={closeMenu}>
+              Recipes
+            </NavLink>
             {isLoggedIn && (
               <>
-                <Nav.Link as={NavLink} to="/planner" className={navLinkClass}>
+                <NavLink to="/planner" className={navLinkClass} onClick={closeMenu}>
                   Meal Plan
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="/addrecipes" className={navLinkClass}>
+                </NavLink>
+                <NavLink to="/addrecipes" className={navLinkClass} onClick={closeMenu}>
                   Add Recipe
-                </Nav.Link>
+                </NavLink>
               </>
             )}
-          </Nav>
-          <Nav>
-            {isLoggedIn && (
+          </div>
+
+          <div className="site-nav-actions">
+            {isLoggedIn ? (
               <>
-                <Nav.Link className="navbar-link" onClick={logOutUser}>
+                <NavLink to="/profile" className="site-user-pill" onClick={closeMenu}>
+                  <span className="site-user-avatar">{user?.name?.charAt(0)?.toUpperCase()}</span>
+                  {user?.name}
+                </NavLink>
+                <button type="button" className="site-btn site-btn--ghost" onClick={logOutUser}>
                   Logout
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="/profile" className={navLinkClass}>
-                  Profile
-                </Nav.Link>
-                <p className="welcome-msg">Hello {user?.name}</p>
+                </button>
               </>
-            )}
-            {!isLoggedIn && (
+            ) : (
               <>
-                <Nav.Link as={NavLink} to="/signup" className={navLinkClass}>
-                  Sign Up
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="/login" className={navLinkClass}>
+                <NavLink to="/login" className="site-btn site-btn--ghost" onClick={closeMenu}>
                   Log in
-                </Nav.Link>
+                </NavLink>
+                <NavLink to="/signup" className="site-btn site-btn--primary" onClick={closeMenu}>
+                  Sign up
+                </NavLink>
               </>
             )}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+          </div>
+        </nav>
+      </div>
+    </header>
   );
 }
 

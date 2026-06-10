@@ -1,81 +1,296 @@
-.total-container {
-    display: flex;
-    flex-direction: row-reverse;
- 
-    justify-content: space-around;
-    
-}
-.meal-results-container {
-    width: 600px !important;
-    margin-left: 100px;
-    
+.planner-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 3rem;
+  text-align: left;
 }
 
-.meals-container{
-    display: flex !important;
-    flex-direction: row;
-
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin-right: 80px;
-    max-width: 1200px;
-
- }
-
-.clay-size{
-    width: 300px;
-    margin: 20px;
-    height: 320px;
-}
-.add-btn {
-    margin: 20px 0;
+.planner-page-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
 }
 
-.inpt-meal-name {
-    margin-bottom: 20px;
-    width: 70%;
-    padding: 5px;
+.planner-page-header h1 {
+  margin: 0 0 0.4rem;
+  font-family: "ChelseaMarket-Regular", serif;
+  color: #008148;
+  font-size: 2rem;
 }
 
-.meal-total {
-    display: flex;
-    flex-direction: row;
-    width: 400px;
-    background-color: rgba(240, 255, 240, 0.82);
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 20px;
-    margin-top: 2px;
-    margin-left: 75px;
+.planner-page-header p {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
 }
 
-.meal-total p {
-    padding-top: 10px;
-}
-.create-mealplan-btn {
-    margin-top: 20px;
+.planner-back-link {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #008148;
+  text-decoration: none;
 }
 
-.create-mealplan-btn {
-    text-decoration: none;
-      border: none;
-      width: 70%;
-      height: 46px;
-      border-radius: 22.5px;
-      margin: 30px auto;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      background: #008148;
-      color: #fff;
-      font-size: 17px;
-      overflow: hidden;
-      -webkit-transform: perspective(1px) translateZ(0);
-      transform: perspective(1px) translateZ(0);
-      position: relative;
-      -webkit-transition-property: color;
-      transition-property: color;
-      -webkit-transition-duration: 0.3s;
-      transition-duration: 0.3s; }
+.planner-back-link:hover {
+  text-decoration: underline;
+  color: #006b3a;
+}
+
+.planner-loading,
+.planner-error {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #555;
+}
+
+.planner-error p {
+  margin: 0 0 1rem;
+  color: #c0392b;
+}
+
+.planner-error-link {
+  color: #008148;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.planner-error-link:hover {
+  text-decoration: underline;
+}
+
+.planner-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.planner-sidebar {
+  background: #fff;
+  border: 1px solid rgba(0, 129, 72, 0.12);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 1rem;
+}
+
+.planner-sidebar h2 {
+  margin: 0 0 0.75rem;
+  font-family: "ChelseaMarket-Regular", serif;
+  font-size: 1rem;
+  color: #008148;
+}
+
+.planner-name-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #cce8d4;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+  outline: none;
+}
+
+.planner-name-input:focus {
+  border-color: #008148;
+  box-shadow: 0 0 0 2px rgba(0, 129, 72, 0.12);
+}
+
+.planner-selected-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 340px;
+  overflow-y: auto;
+  margin-bottom: 0.75rem;
+}
+
+.planner-empty-hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.planner-selected-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  background: #f4faf5;
+  border: 1px solid #e0efe4;
+  border-radius: 8px;
+}
+
+.planner-selected-item img {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.planner-selected-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.planner-selected-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.planner-selected-qty {
+  font-size: 0.7rem;
+  color: #008148;
+  font-weight: 600;
+}
+
+.planner-selected-remove {
+  background: none;
+  border: none;
+  color: #c0392b;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0 0.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.planner-create-btn {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: none;
+  border-radius: 10px;
+  background: #008148;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.planner-create-btn:hover:not(:disabled) {
+  background: #006b3a;
+}
+
+.planner-create-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.planner-browse {
+  min-width: 0;
+}
+
+.planner-browse-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.planner-browse-toolbar h2 {
+  margin: 0;
+  font-family: "ChelseaMarket-Regular", serif;
+  font-size: 1.1rem;
+  color: #008148;
+  white-space: nowrap;
+}
+
+.planner-search {
+  width: 100%;
+  max-width: 280px;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid #cce8d4;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #333;
+  outline: none;
+  margin-left: auto;
+}
+
+.planner-search:focus {
+  border-color: #008148;
+  box-shadow: 0 0 0 3px rgba(0, 129, 72, 0.12);
+}
+
+.planner-recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.planner-no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #777;
+  padding: 2rem 0;
+}
+
+.planner-recipe-picker {
+  position: relative;
+  width: auto;
+  background: #fff;
+  border-radius: 14px;
+  padding: 0.65rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 129, 72, 0.1);
+}
+
+.planner-recipe-picker .add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin: 0.4rem auto 0;
+  border-radius: 50%;
+  background: #008148;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.planner-recipe-picker .add-btn:hover {
+  background: #006b3a;
+}
+
+@media (max-width: 768px) {
+  .planner-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .planner-sidebar {
+    position: static;
+  }
+
+  .planner-browse-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .planner-search {
+    max-width: none;
+    margin-left: 0;
+  }
+
+  .planner-recipes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}

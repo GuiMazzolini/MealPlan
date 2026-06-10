@@ -1,3 +1,9 @@
-.App {
-  text-align: center;
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
 }

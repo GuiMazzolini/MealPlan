@@ -1,4 +1,4 @@
-import "./LoginPage.css";
+import "../../styles/auth.css";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
@@ -27,42 +27,47 @@ function LoginPage() {
   };
 
   return (
-    <div className="wrapper--signup">
-      <div className="image-holder" aria-hidden="true" />
-      <div className="form-inner">
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-brand">
+          <span className="auth-brand-icon" aria-hidden="true">🥗</span>
+          <h1>Welcome back</h1>
+          <p>Sign in to share recipes and plan your meals.</p>
+        </div>
+
         <form onSubmit={handleLoginSubmit}>
-          <div className="form-header">
-            <h1>Login</h1>
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
+          <div className="auth-field">
+            <label htmlFor="email">Email</label>
             <input
-              className="form-control"
               id="email"
               type="email"
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
+          <div className="auth-field">
+            <label htmlFor="password">Password</label>
             <input
-              className="form-control"
               id="password"
               type="password"
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
             />
           </div>
-          <button className="create-acc-btn" type="submit">Login</button>
+          <button className="auth-submit" type="submit">Log in</button>
         </form>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-        <div className="to-login">
+        {errorMessage && <p className="auth-error">{errorMessage}</p>}
+
+        <div className="auth-switch">
           <p>Don&apos;t have an account yet?</p>
-          <Link className="login-btn" to="/signup">Sign Up</Link>
+          <Link className="auth-switch-link" to="/signup">Create an account</Link>
         </div>
       </div>
     </div>

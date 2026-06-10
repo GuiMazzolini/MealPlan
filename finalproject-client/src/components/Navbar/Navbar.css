@@ -1,28 +1,220 @@
-.navbar {
-    border-bottom: solid 1px white;
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 129, 72, 0.12);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  isolation: isolate;
 }
 
-.navbar-link, .navbar {
-    background-color: #008148 !important;
-    color: whitesmoke !important;
-    text-shadow: 1px 1px 1px black; 
+.site-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-.navbar-link:hover,
-.navbar-link.active {
-    color: rgba(240, 255, 240, 0.82)!important;
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "ChelseaMarket-Regular", serif;
+  font-size: 1.35rem;
+  color: #008148;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
-.navbar-link.active {
-    font-weight: 700;
-    text-decoration: underline;
+.site-brand:hover {
+  color: #006b3a;
 }
 
-.welcome-msg {
-    margin-top: 8px;
-    margin-left: 30px;
+.site-brand-icon {
+  font-size: 1.4rem;
+  line-height: 1;
 }
 
-.welcome-msg:hover {
-    color: whitesmoke !important;
+.site-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border: 1px solid #e0efe4;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.site-menu-toggle span {
+  display: block;
+  height: 2px;
+  background: #008148;
+  border-radius: 1px;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+  justify-content: space-between;
+  margin-left: 2rem;
+}
+
+.site-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.site-nav-link {
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #444;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.site-nav-link:hover {
+  background: #f4faf5;
+  color: #008148;
+}
+
+.site-nav-link.active {
+  background: #e8f5e9;
+  color: #008148;
+  font-weight: 600;
+}
+
+.site-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.site-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 1rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  border: none;
+  white-space: nowrap;
+}
+
+.site-btn--ghost {
+  background: transparent;
+  color: #008148;
+  border: 1px solid transparent;
+}
+
+.site-btn--ghost:hover {
+  background: #f4faf5;
+}
+
+.site-btn--primary {
+  background: #008148;
+  color: #fff;
+  border: 1px solid #008148;
+}
+
+.site-btn--primary:hover {
+  background: #006b3a;
+  color: #fff;
+}
+
+.site-user-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem 0.35rem 0.35rem;
+  border-radius: 999px;
+  background: #f4faf5;
+  border: 1px solid #e0efe4;
+  color: #333;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.site-user-pill:hover {
+  background: #e8f5e9;
+  color: #008148;
+}
+
+.site-user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #008148;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .site-menu-toggle {
+    display: flex;
+  }
+
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    margin: 0;
+    padding: 1rem 1.5rem 1.25rem;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 129, 72, 0.12);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .site-nav--open {
+    display: flex;
+  }
+
+  .site-nav-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .site-nav-link {
+    padding: 0.65rem 0.85rem;
+  }
+
+  .site-nav-actions {
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 0.5rem;
+    border-top: 1px solid #eef5f0;
+  }
+
+  .site-btn,
+  .site-user-pill {
+    justify-content: center;
+    width: 100%;
+  }
 }

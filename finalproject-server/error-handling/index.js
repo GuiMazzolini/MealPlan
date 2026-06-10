@@ -27,6 +27,16 @@ module.exports = (app) => {
       return;
     }
 
+    if (err.http_code) {
+      res.status(err.http_code).json({ message: err.message });
+      return;
+    }
+
+    if (err.message === "No file uploaded!") {
+      res.status(400).json({ message: err.message });
+      return;
+    }
+
     res.status(500).json({
       message: "Internal server error. Check the server console",
     });

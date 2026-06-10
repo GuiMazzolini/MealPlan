@@ -1,33 +1,55 @@
 .recipes-title {
-   font-family: "ChelseaMarket-Regular";
-   color: #008148;
-   margin-bottom: 0.5rem;
+  font-family: "ChelseaMarket-Regular";
+  color: #008148;
+  margin-bottom: 0.5rem;
 }
 
 .all-recipes-container {
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: space-evenly;
-   text-decoration: none !important;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.75rem;
+  padding: 0 1.5rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.all-recipes-container > p {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #555;
+  padding: 2rem 0;
 }
 
 .title-search {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   text-align: center;
-   margin: 30px auto;
-   max-width: 600px;
-   padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 30px auto 2rem;
+  max-width: 600px;
+  padding: 0 1rem;
 }
 
 .title-search h5 {
-   font-family: "ChelseaMarket-Regular";
-   color: #008148;
-   margin-bottom: 1rem;
+  font-family: "ChelseaMarket-Regular";
+  color: #008148;
+  margin-bottom: 1rem;
 }
 
 .title-search input {
-   width: 100%;
-   max-width: 400px;
+  width: 100%;
+  max-width: 400px;
+  padding: 0.65rem 1rem;
+  border: 1px solid #cce8d4;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.title-search input:focus {
+  border-color: #008148;
+  box-shadow: 0 0 0 3px rgba(0, 129, 72, 0.15);
 }

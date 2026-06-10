@@ -1,76 +1,159 @@
-.home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.home-hero-band {
+  width: 100%;
+  padding: 2.75rem 1.5rem 3.25rem;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% -20%, rgba(0, 129, 72, 0.16) 0%, transparent 65%),
+    linear-gradient(180deg, #e3f3ea 0%, #eef8f2 40%, #f7fbf8 100%);
+  border-bottom: 1px solid rgba(0, 129, 72, 0.07);
+}
+
+.home-hero {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.home-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.25rem 1.5rem 3rem;
+}
+
+.home-hero h1 {
+  margin: 0 0 0.75rem;
+  font-family: "ChelseaMarket-Regular", cursive;
+  color: #008148;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
 }
 
 .home-subtitle {
-    max-width: 600px;
-    margin-bottom: 2rem;
-    color: #333;
+  max-width: 520px;
+  margin: 0 auto 1.75rem;
+  color: #444;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.home-btn {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border-radius: 22px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.home-btn--primary {
+  background-color: #008148;
+  color: #fff;
+}
+
+.home-btn--primary:hover {
+  background-color: #006b3a;
+  color: #fff;
+}
+
+.home-btn--secondary {
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #008148;
+  border: 2px solid rgba(0, 129, 72, 0.35);
+  backdrop-filter: blur(4px);
+}
+
+.home-btn--secondary:hover {
+  background-color: #fff;
+  border-color: #008148;
+  color: #006b3a;
+}
+
+.home-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.home-feature {
+  background: #fff;
+  border: 1px solid rgba(0, 129, 72, 0.12);
+  border-radius: 14px;
+  padding: 1.25rem 1.35rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.home-feature-icon {
+  font-size: 1.75rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.home-feature h2 {
+  font-family: "ChelseaMarket-Regular", cursive;
+  color: #008148;
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+}
+
+.home-feature p {
+  margin: 0;
+  color: #555;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.home-latest {
+  text-align: center;
 }
 
 .home-section-title {
-    font-family: "ChelseaMarket-Regular";
-    color: #008148;
-    margin-bottom: 1rem;
+  font-family: "ChelseaMarket-Regular", cursive;
+  color: #008148;
+  margin: 0 0 1.5rem;
+  font-size: 1.35rem;
+}
+
+.home-recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 200px));
+  gap: 1.25rem;
+  justify-content: center;
+  max-width: 680px;
+  margin: 0 auto 1.75rem;
+  text-align: left;
+}
+
+@media (max-width: 640px) {
+  .home-recipe-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    max-width: none;
+  }
 }
 
 .home-browse-btn {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 0.75rem 1.5rem;
-    background-color: #008148;
-    color: white;
-    border-radius: 22px;
-    text-decoration: none;
-    font-weight: 600;
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #008148;
+  color: white;
+  border-radius: 22px;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .home-browse-btn:hover {
-    color: white;
-    background-color: #006b3a;
+  color: white;
+  background-color: #006b3a;
 }
 
-
-.img-home {
-    width: 500px !important;
-    align-self: center !important;
-    margin-top: 50px;
-}
-
-h1 {
-    margin-top: 50px !important;
-    margin-bottom: 30px !important;
-    font-family: "ChelseaMarket-Regular";
-    color: #008148;
-}
-
-.container-card {
-    width: 600px !important;
-    
-}
-
-.new-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.carousel-item {
-    height: 80vh;
-    max-height: 600px;
-    background: no-repeat center center scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-  }
-
-.carousel {
-    width: 100vh;
-}
-
-.carousel-item h3{
-    text-shadow: 2px 2px black;
+.home-empty {
+  text-align: center;
+  color: #555;
+  padding: 2rem 0;
 }

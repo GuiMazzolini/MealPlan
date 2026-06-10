@@ -12,3 +12,8 @@ export function getLatestPlanner(planners) {
   if (!planners?.length) return null;
   return planners[planners.length - 1];
 }
+
+export function findPlannerById(planners, plannerId) {
+  if (!plannerId || !planners?.length) return null;
+  return planners.find((planner) => planner._id === plannerId) || null;
+}

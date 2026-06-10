@@ -1,4 +1,4 @@
-import "./SignupPage.css";
+import "../../styles/auth.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../services/api";
@@ -22,53 +22,58 @@ function SignupPage() {
   };
 
   return (
-    <div className="wrapper--signup">
-      <div className="image-holder" aria-hidden="true" />
-      <div className="form-inner">
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-brand">
+          <span className="auth-brand-icon" aria-hidden="true">🥗</span>
+          <h1>Join MealPlan</h1>
+          <p>Create an account to share recipes with the community.</p>
+        </div>
+
         <form onSubmit={handleSignupSubmit}>
-          <div className="form-header">
-            <h3>Sign up</h3>
-          </div>
-          <div className="form-group">
-            <label htmlFor="name">Username:</label>
+          <div className="auth-field">
+            <label htmlFor="name">Username</label>
             <input
-              type="text"
-              className="form-control"
               id="name"
+              type="text"
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
+              autoComplete="username"
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="email">E-mail:</label>
+          <div className="auth-field">
+            <label htmlFor="email">Email</label>
             <input
-              type="email"
               id="email"
+              type="email"
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="form-control"
+              required
+              autoComplete="email"
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
+          <div className="auth-field">
+            <label htmlFor="password">Password</label>
             <input
-              type="password"
               id="password"
-              className="form-control"
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="new-password"
             />
           </div>
-          <button className="create-acc-btn" type="submit">Create my account</button>
+          <button className="auth-submit" type="submit">Create account</button>
         </form>
 
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {errorMessage && <p className="auth-error">{errorMessage}</p>}
 
-        <div className="to-login">
-          <h6>Already have an account?</h6>
-          <Link className="login-btn" to="/login">Login</Link>
+        <div className="auth-switch">
+          <p>Already have an account?</p>
+          <Link className="auth-switch-link" to="/login">Log in</Link>
         </div>
       </div>
     </div>

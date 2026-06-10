@@ -1,0 +1,137 @@
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 140px);
+  padding: 2rem 1.5rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border: 1px solid rgba(0, 129, 72, 0.12);
+  border-radius: 20px;
+  padding: 2rem 2rem 1.75rem;
+  box-shadow: 0 8px 32px rgba(0, 129, 72, 0.1);
+  text-align: left;
+}
+
+.auth-brand {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.auth-brand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: #e8f5e9;
+  border-radius: 14px;
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.auth-brand h1 {
+  margin: 0 0 0.35rem;
+  font-family: "ChelseaMarket-Regular", serif;
+  font-size: 1.75rem;
+  color: #008148;
+}
+
+.auth-brand p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.auth-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.auth-field input {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #cce8d4;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #333;
+  background: #fafcfa;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-field input:focus {
+  border-color: #008148;
+  box-shadow: 0 0 0 3px rgba(0, 129, 72, 0.12);
+}
+
+.auth-submit {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 12px;
+  background: #008148;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.auth-submit:hover {
+  background: #006b3a;
+}
+
+.auth-error {
+  margin: 0.75rem 0 0;
+  padding: 0.6rem 0.75rem;
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  color: #c0392b;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.auth-switch {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #eef5f0;
+  text-align: center;
+}
+
+.auth-switch p {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.auth-switch-link {
+  display: inline-block;
+  padding: 0.55rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid #008148;
+  color: #008148;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.auth-switch-link:hover {
+  background: #008148;
+  color: #fff;
+}

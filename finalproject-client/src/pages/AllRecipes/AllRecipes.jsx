@@ -25,7 +25,6 @@ function AllRecipes({ recipes }) {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-96 border rounded border-gray-400 h-10 focus:outline-none pl-4 pr-8 text-gray-700 text-sm text-gray-500"
           />
         </div>
       </div>
