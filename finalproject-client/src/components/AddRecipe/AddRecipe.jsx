@@ -1,10 +1,18 @@
 import "./AddRecipe.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import service from "../../services/service";
 import { AuthContext } from "../../context/auth.context";
+import { MEASURE_OPTIONS, formatMeasureDisplay } from "../../constants/measures";
+import {
+  getIngredientCatalog,
+  normalizeIngredientEntry,
+  formatIngredientDisplay,
+  findDidYouMean,
+  extractCommunityIngredientCount,
+} from "../../utils/ingredientHelpers";
 
-function AddRecipes() {
+function AddRecipes({ recipes = [] }) {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -22,6 +30,17 @@ function AddRecipes() {
   const [submitError, setSubmitError] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [ingredientHint, setIngredientHint] = useState("");
+  const [didYouMean, setDidYouMean] = useState(null);
+
+  const ingredientCatalog = useMemo(
+    () => getIngredientCatalog(recipes),
+    [recipes]
+  );
+  const communityIngredientCount = useMemo(
+    () => extractCommunityIngredientCount(recipes),
+    [recipes]
+  );
 
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -105,16 +124,56 @@ function AddRecipes() {
     }
   };
 
+  const updateIngredientSuggestion = (value) => {
+    setIngredientHint("");
+    setDidYouMean(findDidYouMean(value, recipes));
+  };
+
   const handleNewIngredients = (e) => {
     const { name: field, value } = e.target;
     setNewIngredient({ ...newIngredient, [field]: value });
+    if (field === "ingredient") {
+      updateIngredientSuggestion(value);
+    }
+  };
+
+  const applyDidYouMean = () => {
+    if (!didYouMean) return;
+    setNewIngredient({ ...newIngredient, ingredient: didYouMean.label });
+    setDidYouMean(null);
+    setIngredientHint(`Using "${didYouMean.label}".`);
   };
 
   const addIngredients = () => {
     if (!newIngredient.ingredient.trim()) return;
-    setIngredients([...ingredients, { ...newIngredient }]);
+    if (!newIngredient.measure) {
+      setSubmitError("Select a unit for this ingredient.");
+      return;
+    }
+    if (!newIngredient.quantity || Number(newIngredient.quantity) <= 0) {
+      setSubmitError("Enter a valid quantity for this ingredient.");
+      return;
+    }
+
+    const normalized = normalizeIngredientEntry(newIngredient, recipes);
+    const wasCorrected =
+      normalized.displayIngredient.toLowerCase() !==
+      newIngredient.ingredient.trim().toLowerCase();
+
+    setIngredients([
+      ...ingredients,
+      {
+        quantity: normalized.quantity,
+        measure: normalized.measure,
+        ingredient: normalized.ingredient,
+      },
+    ]);
     setNewIngredient({ quantity: "", measure: "", ingredient: "" });
+    setDidYouMean(null);
     setSubmitError("");
+    setIngredientHint(
+      wasCorrected ? `Saved as "${normalized.displayIngredient}".` : ""
+    );
   };
 
   const addSteps = () => {
@@ -208,11 +267,23 @@ function AddRecipes() {
 
         <section className="add-recipe-section">
           <h2>Ingredients</h2>
+          <p className="add-recipe-field-hint">
+            Pick from suggestions when possible — names are standardized so shopping lists add up correctly.
+            {communityIngredientCount > 0 && (
+              <>
+                {" "}
+                Includes {communityIngredientCount} ingredient
+                {communityIngredientCount !== 1 ? "s" : ""} from community recipes.
+              </>
+            )}
+          </p>
           <div className="add-recipe-ingredient-row">
             <input
-              type="text"
+              type="number"
               placeholder="Qty"
               name="quantity"
+              min="0"
+              step="any"
               data-action="add-ingredient"
               value={newIngredient.quantity}
               onChange={handleNewIngredients}
@@ -224,29 +295,55 @@ function AddRecipes() {
               onChange={handleNewIngredients}
             >
               <option value="">Unit</option>
-              <option value="milliliters">mL</option>
-              <option value="units">units</option>
-              <option value="grams">grams</option>
-              <option value="tbs">tbs</option>
-              <option value="ts">ts</option>
+              {MEASURE_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
             <input
               type="text"
-              placeholder="Ingredient name"
+              placeholder="Start typing an ingredient..."
               name="ingredient"
+              list="ingredient-catalog"
               data-action="add-ingredient"
               value={newIngredient.ingredient}
               onChange={handleNewIngredients}
+              onBlur={() => updateIngredientSuggestion(newIngredient.ingredient)}
+              autoComplete="off"
             />
+            <datalist id="ingredient-catalog">
+              {ingredientCatalog.map((entry) => (
+                <option key={entry.id} value={entry.label} />
+              ))}
+            </datalist>
             <button type="button" className="add-recipe-add-btn" onClick={addIngredients}>
               +
             </button>
           </div>
+          {didYouMean && (
+            <p className="add-recipe-did-you-mean">
+              Did you mean{" "}
+              <button type="button" onClick={applyDidYouMean}>
+                {didYouMean.label}
+              </button>
+              ?
+              {didYouMean.source === "community" && (
+                <span className="add-recipe-did-you-mean-note"> (from community recipes)</span>
+              )}
+            </p>
+          )}
+          {ingredientHint && (
+            <p className="add-recipe-ingredient-hint">{ingredientHint}</p>
+          )}
           {ingredients.length > 0 ? (
             <ul className="add-recipe-list">
               {ingredients.map((item, index) => (
-                <li key={`${item.ingredient}-${index}`}>
-                  <span>{item.quantity} {item.measure} {item.ingredient}</span>
+                <li key={`${item.ingredient}-${item.measure}-${index}`}>
+                  <span>
+                    {item.quantity} {formatMeasureDisplay(item.measure)}{" "}
+                    {formatIngredientDisplay(item.ingredient, recipes)}
+                  </span>
                   <button type="button" className="add-recipe-remove-btn" onClick={() => deleteIngredient(item)}>×</button>
                 </li>
               ))}

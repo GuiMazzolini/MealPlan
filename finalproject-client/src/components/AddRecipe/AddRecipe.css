@@ -239,6 +239,45 @@
   font-style: italic;
 }
 
+.add-recipe-field-hint {
+  margin: -0.25rem 0 0.85rem;
+  font-size: 0.82rem;
+  color: #666;
+  line-height: 1.45;
+}
+
+.add-recipe-ingredient-hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.82rem;
+  color: #008148;
+  font-weight: 600;
+}
+
+.add-recipe-did-you-mean {
+  margin: 0.55rem 0 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.add-recipe-did-you-mean button {
+  border: none;
+  background: none;
+  padding: 0;
+  color: #008148;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.add-recipe-did-you-mean button:hover {
+  color: #006b3a;
+}
+
+.add-recipe-did-you-mean-note {
+  color: #888;
+  font-size: 0.8rem;
+}
+
 .add-recipe-error {
   margin: 0.5rem 0 0;
   color: #c0392b;

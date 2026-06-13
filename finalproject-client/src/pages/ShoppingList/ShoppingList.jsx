@@ -11,6 +11,7 @@ import {
   buildShoppingItems,
   formatShoppingListText,
 } from "../../utils/shoppingListHelpers";
+import { formatMeasureDisplay } from "../../constants/measures";
 
 function ShoppingList({ recipes }) {
   const [plannerList, setPlannerList] = useState([]);
@@ -58,7 +59,7 @@ function ShoppingList({ recipes }) {
   const findFullRecipe = (recipeId) => recipes.find((r) => r._id === recipeId);
 
   const shoppingItems = useMemo(
-    () => buildShoppingItems(plannedRecipes, findFullRecipe),
+    () => buildShoppingItems(plannedRecipes, findFullRecipe, recipes),
     [plannedRecipes, recipes]
   );
 
@@ -258,7 +259,7 @@ function ShoppingList({ recipes }) {
                         />
                         <span className="shopping-item-check print-only">☐</span>
                         <span className="shopping-item-text">
-                          <strong>{item.quantity}</strong> {item.measure}{" "}
+                          <strong>{item.quantity}</strong> {formatMeasureDisplay(item.measure)}{" "}
                           {item.ingredient}
                         </span>
                       </label>

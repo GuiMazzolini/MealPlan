@@ -39,7 +39,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage recipes={recipes} />} />
           <Route path="/recipes" element={<AllRecipes recipes={recipes} />} />
-          <Route path="/recipes/:recipesId" element={<RecipesDetails />} />
+          <Route path="/recipes/:recipesId" element={<RecipesDetails recipes={recipes} />} />
           <Route
             path="/profile"
             element={
@@ -52,7 +52,7 @@ function App() {
             path="/addrecipes"
             element={
               <IsPrivate>
-                <AddRecipes />
+                <AddRecipes recipes={recipes} />
               </IsPrivate>
             }
           />

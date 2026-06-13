@@ -2,8 +2,9 @@ import "./RecipesDetails.css";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation, Link } from "react-router-dom";
 import service from "../../services/service";
+import { formatRecipeIngredient } from "../../utils/shoppingListHelpers";
 
-function RecipesDetails() {
+function RecipesDetails({ recipes = [] }) {
   const [currentRecipe, setCurrentRecipe] = useState(null);
   const [loadError, setLoadError] = useState("");
   const { recipesId } = useParams();
@@ -100,14 +101,17 @@ function RecipesDetails() {
         <section className="recipe-detail-section">
           <h2>Ingredients</h2>
           <ul className="recipe-detail-ingredients">
-            {currentRecipe.ingredients.map((item, index) => (
+            {currentRecipe.ingredients.map((item, index) => {
+              const formatted = formatRecipeIngredient(item, recipes);
+              return (
               <li key={`${item.ingredient}-${index}`}>
                 <span className="recipe-detail-ingredient-qty">
-                  {item.quantity} {item.measure}
+                  {formatted.quantity} {formatted.measure}
                 </span>
-                <span className="recipe-detail-ingredient-name">{item.ingredient}</span>
+                <span className="recipe-detail-ingredient-name">{formatted.ingredient}</span>
               </li>
-            ))}
+            );
+            })}
           </ul>
         </section>
 
