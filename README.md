@@ -91,6 +91,24 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+### 4. Seed demo data (optional)
+
+Populate the database with a demo account, sample recipes, and a meal plan:
+
+```bash
+cd finalproject-server
+npm run seed
+```
+
+**Demo login**
+
+| | |
+|---|---|
+| Email | `demo@mealplan.com` |
+| Password | `Demo1234` |
+
+Re-running the seed script replaces previous demo data (same email).
+
 ## API Overview
 
 ### Public routes
@@ -129,6 +147,7 @@ Open [http://localhost:3000](http://localhost:3000).
 ```bash
 npm start      # production
 npm run dev    # development with nodemon
+npm run seed   # demo user, recipes, and meal plan
 ```
 
 **Client**

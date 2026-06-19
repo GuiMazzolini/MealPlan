@@ -10,6 +10,7 @@ import {
 import {
   buildShoppingItems,
   formatShoppingListText,
+  formatShoppingAmounts,
 } from "../../utils/shoppingListHelpers";
 import { formatMeasureDisplay } from "../../constants/measures";
 
@@ -243,8 +244,9 @@ function ShoppingList({ recipes }) {
             {shoppingItems.length > 0 ? (
               <ul className="shopping-items">
                 {shoppingItems.map((item) => {
-                  const key = `${item.ingredient}-${item.measure}`;
+                  const key = item.id;
                   const isChecked = !!checkedItems[key];
+                  const amountsText = formatShoppingAmounts(item.amounts);
                   return (
                     <li
                       key={key}
@@ -259,8 +261,18 @@ function ShoppingList({ recipes }) {
                         />
                         <span className="shopping-item-check print-only">☐</span>
                         <span className="shopping-item-text">
-                          <strong>{item.quantity}</strong> {formatMeasureDisplay(item.measure)}{" "}
-                          {item.ingredient}
+                          {item.hasMixedMeasures ? (
+                            <>
+                              <strong>{item.ingredient}</strong>
+                              <span className="shopping-item-amounts"> — {amountsText}</span>
+                            </>
+                          ) : (
+                            <>
+                              <strong>{item.amounts[0].quantity}</strong>{" "}
+                              {formatMeasureDisplay(item.amounts[0].measure)}{" "}
+                              {item.ingredient}
+                            </>
+                          )}
                         </span>
                       </label>
                     </li>

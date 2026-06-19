@@ -5,8 +5,23 @@ import {
   resolveIngredient,
 } from "./ingredientHelpers";
 
+function mergeAmounts(amounts, quantity, measure) {
+  const existing = amounts.find((entry) => entry.measure === measure);
+  if (existing) {
+    existing.quantity += quantity;
+  } else {
+    amounts.push({ quantity, measure });
+  }
+}
+
+export function formatShoppingAmounts(amounts) {
+  return amounts
+    .map(({ quantity, measure }) => `${quantity} ${formatMeasureDisplay(measure)}`)
+    .join(", ");
+}
+
 export function buildShoppingItems(plannedRecipes, findFullRecipe, recipes = []) {
-  const aggregated = new Map();
+  const byIngredientAndMeasure = new Map();
 
   plannedRecipes.forEach((planned) => {
     const recipe = findFullRecipe(planned._id) || planned;
@@ -15,23 +30,45 @@ export function buildShoppingItems(plannedRecipes, findFullRecipe, recipes = [])
       const key = ingredientAggregationKey(item.ingredient, item.measure, recipes);
       const quantity = Number(item.quantity) * planned.quantity;
       const canonicalMeasure = normalizeMeasure(item.measure);
-      const displayIngredient = formatIngredientDisplay(item.ingredient, recipes);
+      const resolved = resolveIngredient(item.ingredient, recipes);
 
-      if (aggregated.has(key)) {
-        aggregated.get(key).quantity += quantity;
+      if (byIngredientAndMeasure.has(key)) {
+        byIngredientAndMeasure.get(key).quantity += quantity;
       } else {
-        aggregated.set(key, {
+        byIngredientAndMeasure.set(key, {
           quantity,
           measure: canonicalMeasure,
-          ingredient: displayIngredient,
+          ingredient: resolved.display,
+          canonical: resolved.canonical,
         });
       }
     });
   });
 
-  return Array.from(aggregated.values()).sort((a, b) =>
-    a.ingredient.localeCompare(b.ingredient)
-  );
+  const grouped = new Map();
+
+  byIngredientAndMeasure.forEach((entry) => {
+    if (!grouped.has(entry.canonical)) {
+      grouped.set(entry.canonical, {
+        id: entry.canonical,
+        ingredient: entry.ingredient,
+        amounts: [],
+      });
+    }
+
+    mergeAmounts(
+      grouped.get(entry.canonical).amounts,
+      entry.quantity,
+      entry.measure
+    );
+  });
+
+  return Array.from(grouped.values())
+    .map((item) => ({
+      ...item,
+      hasMixedMeasures: item.amounts.length > 1,
+    }))
+    .sort((a, b) => a.ingredient.localeCompare(b.ingredient));
 }
 
 export function formatShoppingListText(planName, plannedRecipes, shoppingItems, findFullRecipe) {
@@ -48,8 +85,12 @@ export function formatShoppingListText(planName, plannedRecipes, shoppingItems, 
 
   lines.push("Shopping list:");
   shoppingItems.forEach((item) => {
-    const measureLabel = formatMeasureDisplay(item.measure);
-    lines.push(`☐ ${item.quantity} ${measureLabel} ${item.ingredient}`);
+    const amounts = formatShoppingAmounts(item.amounts);
+    if (item.hasMixedMeasures) {
+      lines.push(`☐ ${item.ingredient} — ${amounts}`);
+    } else {
+      lines.push(`☐ ${amounts} ${item.ingredient}`);
+    }
   });
 
   return lines.join("\n");

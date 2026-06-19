@@ -1,6 +1,6 @@
 import "./AddRecipe.css";
-import { useState, useContext, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, useMemo, useEffect } from "react";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import service from "../../services/service";
 import { AuthContext } from "../../context/auth.context";
 import { MEASURE_OPTIONS, formatMeasureDisplay } from "../../constants/measures";
@@ -12,7 +12,10 @@ import {
   extractCommunityIngredientCount,
 } from "../../utils/ingredientHelpers";
 
-function AddRecipes({ recipes = [] }) {
+function AddRecipes({ recipes = [], onRecipesChange }) {
+  const { recipesId } = useParams();
+  const isEditing = Boolean(recipesId);
+
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -28,8 +31,10 @@ function AddRecipes({ recipes = [] }) {
   });
   const [uploadError, setUploadError] = useState("");
   const [submitError, setSubmitError] = useState("");
+  const [loadError, setLoadError] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(isEditing);
   const [ingredientHint, setIngredientHint] = useState("");
   const [didYouMean, setDidYouMean] = useState(null);
 
@@ -44,6 +49,40 @@ function AddRecipes({ recipes = [] }) {
 
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!isEditing) return;
+
+    setIsLoading(true);
+    setLoadError("");
+
+    service.getOne(recipesId)
+      .then((recipe) => {
+        const ownerId = recipe.user?._id || recipe.user;
+        if (ownerId !== user?._id) {
+          setLoadError("You can only edit your own recipes.");
+          return;
+        }
+
+        setName(recipe.name || "");
+        setType(recipe.type || "");
+        setImageUrl(recipe.imageUrl || "");
+        setTime(recipe.time || "");
+        setServing(recipe.serving != null ? String(recipe.serving) : "");
+        setIngredients(recipe.ingredients || []);
+        setPrepare(recipe.prepare || []);
+      })
+      .catch(() => setLoadError("Could not load this recipe."))
+      .finally(() => setIsLoading(false));
+  }, [isEditing, recipesId, user?._id]);
+
+  const handleCancel = () => {
+    if (isEditing) {
+      navigate(`/recipes/${recipesId}`);
+      return;
+    }
+    navigate(-1);
+  };
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -93,10 +132,19 @@ function AddRecipes({ recipes = [] }) {
       imageUrl,
     };
 
-    service.createRecipes(requestBody)
-      .then(() => navigate("/recipes"))
+    const savePromise = isEditing
+      ? service.updateRecipe(recipesId, requestBody)
+      : service.createRecipes(requestBody);
+
+    savePromise
+      .then(() => {
+        onRecipesChange?.();
+        navigate(isEditing ? `/recipes/${recipesId}` : "/recipes");
+      })
       .catch((error) => {
-        const message = error.response?.data?.message || "Failed to create recipe. Please try again.";
+        const message =
+          error.response?.data?.message ||
+          `Failed to ${isEditing ? "update" : "create"} recipe. Please try again.`;
         setSubmitError(message);
       })
       .finally(() => setIsSubmitting(false));
@@ -191,11 +239,38 @@ function AddRecipes({ recipes = [] }) {
     setIngredients(ingredients.filter((ing) => ing !== item));
   };
 
+  if (isLoading) {
+    return (
+      <div className="add-recipe-page">
+        <p className="add-recipe-hint" style={{ textAlign: "center", padding: "3rem" }}>
+          Loading recipe...
+        </p>
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div className="add-recipe-page">
+        <div style={{ textAlign: "center", padding: "3rem" }}>
+          <p className="add-recipe-error">{loadError}</p>
+          <Link to="/profile" className="add-recipe-cancel-btn" style={{ display: "inline-block", marginTop: "1rem" }}>
+            ← Back to profile
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="add-recipe-page">
       <header className="add-recipe-header">
-        <h1>Share a Recipe</h1>
-        <p>Add your recipe to the community. Use the + buttons or Enter to add ingredients and steps.</p>
+        <h1>{isEditing ? "Edit Recipe" : "Share a Recipe"}</h1>
+        <p>
+          {isEditing
+            ? "Update your recipe details, ingredients, or method."
+            : "Add your recipe to the community. Use the + buttons or Enter to add ingredients and steps."}
+        </p>
       </header>
 
       <form className="add-recipe-form" onSubmit={handleSubmit} onKeyDown={handleFormKeyDown}>
@@ -386,11 +461,17 @@ function AddRecipes({ recipes = [] }) {
         {submitError && <p className="add-recipe-error add-recipe-error--submit">{submitError}</p>}
 
         <div className="add-recipe-actions">
-          <button type="button" className="add-recipe-cancel-btn" onClick={() => navigate(-1)}>
+          <button type="button" className="add-recipe-cancel-btn" onClick={handleCancel}>
             Cancel
           </button>
           <button type="submit" className="add-recipe-submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? "Sharing..." : "Share Recipe"}
+            {isSubmitting
+              ? isEditing
+                ? "Saving..."
+                : "Sharing..."
+              : isEditing
+                ? "Save changes"
+                : "Share Recipe"}
           </button>
         </div>
       </form>

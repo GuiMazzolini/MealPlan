@@ -39,6 +39,14 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage recipes={recipes} />} />
           <Route path="/recipes" element={<AllRecipes recipes={recipes} />} />
+          <Route
+            path="/recipes/:recipesId/edit"
+            element={
+              <IsPrivate>
+                <AddRecipes recipes={recipes} onRecipesChange={loadRecipes} />
+              </IsPrivate>
+            }
+          />
           <Route path="/recipes/:recipesId" element={<RecipesDetails recipes={recipes} />} />
           <Route
             path="/profile"
@@ -52,7 +60,7 @@ function App() {
             path="/addrecipes"
             element={
               <IsPrivate>
-                <AddRecipes recipes={recipes} />
+                <AddRecipes recipes={recipes} onRecipesChange={loadRecipes} />
               </IsPrivate>
             }
           />

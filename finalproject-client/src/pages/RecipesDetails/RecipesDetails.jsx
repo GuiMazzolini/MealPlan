@@ -1,7 +1,8 @@
 import "./RecipesDetails.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate, useLocation, Link } from "react-router-dom";
 import service from "../../services/service";
+import { AuthContext } from "../../context/auth.context";
 import { formatRecipeIngredient } from "../../utils/shoppingListHelpers";
 
 function RecipesDetails({ recipes = [] }) {
@@ -10,8 +11,11 @@ function RecipesDetails({ recipes = [] }) {
   const { recipesId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useContext(AuthContext);
   const returnTo = location.state?.returnTo;
   const returnLabel = location.state?.returnLabel || "← Back";
+  const ownerId = currentRecipe?.user?._id || currentRecipe?.user;
+  const isOwner = user?._id && ownerId === user._id;
 
   useEffect(() => {
     setLoadError("");
@@ -93,6 +97,15 @@ function RecipesDetails({ recipes = [] }) {
             <p className="recipe-detail-author">
               Shared by <strong>{currentRecipe.user.name}</strong>
             </p>
+          )}
+
+          {isOwner && (
+            <Link
+              to={`/recipes/${currentRecipe._id}/edit`}
+              className="recipe-detail-edit-btn"
+            >
+              Edit recipe
+            </Link>
           )}
         </div>
       </header>

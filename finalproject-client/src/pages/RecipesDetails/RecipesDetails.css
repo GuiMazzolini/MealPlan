@@ -131,6 +131,24 @@ a.recipe-detail-back {
   color: #008148;
 }
 
+.recipe-detail-edit-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.55rem 1.1rem;
+  background: #008148;
+  color: #fff;
+  border-radius: 22px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.recipe-detail-edit-btn:hover {
+  background: #006b3a;
+  color: #fff;
+}
+
 .recipe-detail-body {
   display: flex;
   flex-direction: column;

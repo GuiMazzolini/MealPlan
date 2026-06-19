@@ -171,6 +171,33 @@
   letter-spacing: 0.03em;
 }
 
+.profile-recipe-edit {
+  position: absolute;
+  top: 6px;
+  right: 34px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 129, 72, 0.9);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.profile-recipe-card:hover .profile-recipe-edit,
+.profile-recipe-edit:focus {
+  opacity: 1;
+}
+
 .profile-recipe-delete {
   position: absolute;
   top: 6px;
@@ -366,6 +393,7 @@
     flex: 1;
   }
 
+  .profile-recipe-edit,
   .profile-recipe-delete {
     opacity: 1;
   }

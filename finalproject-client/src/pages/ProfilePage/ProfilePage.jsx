@@ -112,6 +112,13 @@ function ProfilePage({ recipes, onRecipesChange }) {
                     <h3>{recipe.name}</h3>
                     <span className="profile-recipe-type">{recipe.type}</span>
                   </Link>
+                  <Link
+                    to={`/recipes/${recipe._id}/edit`}
+                    className="profile-recipe-edit"
+                    aria-label={`Edit ${recipe.name}`}
+                  >
+                    ✎
+                  </Link>
                   <button
                     type="button"
                     className="profile-recipe-delete"

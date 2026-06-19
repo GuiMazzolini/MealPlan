@@ -232,6 +232,11 @@
   color: #008148;
 }
 
+.shopping-item-amounts {
+  color: #444;
+  font-weight: 500;
+}
+
 .shopping-hint {
   margin: 0;
   color: #999;
